@@ -1,0 +1,19 @@
+# dependencies & build output
+node_modules/
+dist/
+*.tsbuildinfo
+
+# local tooling / editor
+.claude/
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db
+
+# local env overrides
+.env
+.env.*
+
+# scratch notes not part of the project
+prompt.txt
