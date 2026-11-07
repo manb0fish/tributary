@@ -104,13 +104,20 @@ $env:TRANSMISSION_URL="http://192.168.1.10:9091"; npm run dev
 上面的方法是在你自己的电脑上运行 Tributary。如果想让 **Transmission 自己** 提供 Tributary
 （这样任何设备都能直接打开，无需额外运行任何东西），只需构建一次，再让 Transmission 指向构建结果。
 
-### 1. 构建
+### 1. 获取文件
+
+**最简单：直接下载（不需要 Node.js）。** 打开[最新发布页](https://github.com/manb0fish/tributary/releases/latest)，下载 **tributary.zip**（或 **tributary.tar.gz**）并解压，
+会得到一个名为 `tributary` 的文件夹。把它复制到运行 Transmission 的机器上，例如 `/opt/tributary`。
+
+在 Linux 服务器上，也可以直接在终端里完成：
 
 ```bash
-npm run build
+cd /opt
+sudo curl -L -o tributary.tar.gz https://github.com/manb0fish/tributary/releases/latest/download/tributary.tar.gz
+sudo tar -xzf tributary.tar.gz
 ```
 
-这会生成一个 `dist` 文件夹。把它复制到运行 Transmission 的机器上，例如 `/opt/tributary`。
+**或者自己构建：** 在项目文件夹中运行 `npm run build`，结果在 `dist/` 中，用这个文件夹代替即可。
 
 ### 2. 告诉 Transmission 使用它
 
@@ -133,7 +140,7 @@ Environment=TRANSMISSION_WEB_HOME=/opt/tributary
 sudo systemctl restart transmission-daemon
 ```
 
-**Docker**：把 `dist` 文件夹挂载到容器中（例如 `/tributary`），并添加环境变量 `TRANSMISSION_WEB_HOME=/tributary`。
+**Docker**：把 `tributary` 文件夹挂载到容器中（例如 `/tributary`），并添加环境变量 `TRANSMISSION_WEB_HOME=/tributary`。
 
 **其他情况**：在启动 Transmission 之前，把 `TRANSMISSION_WEB_HOME` 设置为该文件夹的完整路径。
 
@@ -212,6 +219,13 @@ src/
 ├── hooks/          数据获取（TanStack Query）、操作、键盘快捷键
 └── store/          界面状态（Zustand）
 ```
+
+## 贡献者
+
+- [@manb0fish](https://github.com/manb0fish)：项目所有者
+- **Claude**（[Anthropic](https://www.anthropic.com) 的 AI 助手）：共同编写了代码、翻译和文档
+
+非常欢迎新的贡献者！添加一种新语言是很好的入门方式（见[语言](#语言)）。
 
 ## 许可证
 

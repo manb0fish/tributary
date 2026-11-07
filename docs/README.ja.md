@@ -105,13 +105,21 @@ $env:TRANSMISSION_URL="http://192.168.1.10:9091"; npm run dev
 上の手順では Tributary は自分のパソコン上で動いています。**Transmission 自身** に Tributary を配信させれば、
 他に何も動かさなくても、どの端末からでも開けるようになります。一度ビルドして、その結果を Transmission に指定するだけです。
 
-### 1. ビルド
+### 1. ファイルを用意する
+
+**いちばん簡単：ダウンロードする（Node.js は不要）。** [最新のリリース](https://github.com/manb0fish/tributary/releases/latest)を開き、**tributary.zip**（または
+**tributary.tar.gz**）をダウンロードして展開すると、`tributary` というフォルダーができます。これを Transmission が動いている
+マシンにコピーします（例：`/opt/tributary`）。
+
+Linux サーバーなら、ターミナルから直接行うこともできます：
 
 ```bash
-npm run build
+cd /opt
+sudo curl -L -o tributary.tar.gz https://github.com/manb0fish/tributary/releases/latest/download/tributary.tar.gz
+sudo tar -xzf tributary.tar.gz
 ```
 
-`dist` フォルダーが作られます。これを Transmission が動いているマシンにコピーします（例：`/opt/tributary`）。
+**自分でビルドする場合：** プロジェクトのフォルダーで `npm run build` を実行します。結果は `dist/` に出力されるので、そのフォルダーを代わりに使ってください。
 
 ### 2. Transmission に使わせる
 
@@ -134,7 +142,7 @@ Environment=TRANSMISSION_WEB_HOME=/opt/tributary
 sudo systemctl restart transmission-daemon
 ```
 
-**Docker**：`dist` フォルダーをコンテナにマウントし（例：`/tributary`）、環境変数 `TRANSMISSION_WEB_HOME=/tributary` を追加します。
+**Docker**：`tributary` フォルダーをコンテナにマウントし（例：`/tributary`）、環境変数 `TRANSMISSION_WEB_HOME=/tributary` を追加します。
 
 **その他の環境**：Transmission を起動する前に、`TRANSMISSION_WEB_HOME` にフォルダーのフルパスを設定します。
 
@@ -215,6 +223,13 @@ src/
 ├── hooks/          データ取得（TanStack Query）、操作、キーボードショートカット
 └── store/          UI の状態（Zustand）
 ```
+
+## コントリビューター
+
+- [@manb0fish](https://github.com/manb0fish)：プロジェクトオーナー
+- **Claude**（[Anthropic](https://www.anthropic.com) の AI アシスタント）：コード、翻訳、ドキュメントを共同執筆
+
+新しいコントリビューターを歓迎します！翻訳の追加は最初の貢献にぴったりです（[言語](#言語)を参照）。
 
 ## ライセンス
 

@@ -106,13 +106,21 @@ Abre **http://localhost:5173**. La barra de estado, abajo a la derecha, debería
 Con los pasos anteriores, Tributary se ejecuta en tu ordenador. Para que sea **el propio Transmission** quien sirva Tributary
 (y puedas abrirlo desde cualquier dispositivo sin nada más en marcha), compílalo una vez y haz que Transmission apunte al resultado.
 
-### 1. Compila
+### 1. Consigue los archivos
+
+**Lo más fácil: descárgalo (no necesitas Node.js).** Abre la [última versión publicada](https://github.com/manb0fish/tributary/releases/latest), descarga **tributary.zip**
+(o **tributary.tar.gz**) y descomprímelo. Obtendrás una carpeta llamada `tributary`. Cópiala a la máquina donde corre
+Transmission, por ejemplo en `/opt/tributary`.
+
+En un servidor Linux puedes hacerlo directamente desde la terminal:
 
 ```bash
-npm run build
+cd /opt
+sudo curl -L -o tributary.tar.gz https://github.com/manb0fish/tributary/releases/latest/download/tributary.tar.gz
+sudo tar -xzf tributary.tar.gz
 ```
 
-Esto crea una carpeta `dist`. Cópiala a la máquina donde corre Transmission, por ejemplo en `/opt/tributary`.
+**O compílalo tú mismo:** ejecuta `npm run build` en la carpeta del proyecto. El resultado queda en `dist/`; usa esa carpeta en su lugar.
 
 ### 2. Indica a Transmission que la use
 
@@ -135,7 +143,7 @@ Environment=TRANSMISSION_WEB_HOME=/opt/tributary
 sudo systemctl restart transmission-daemon
 ```
 
-**Docker:** monta la carpeta `dist` dentro del contenedor (por ejemplo en `/tributary`) y añade la variable de entorno
+**Docker:** monta la carpeta `tributary` dentro del contenedor (por ejemplo en `/tributary`) y añade la variable de entorno
 `TRANSMISSION_WEB_HOME=/tributary`.
 
 **Cualquier otro caso:** define `TRANSMISSION_WEB_HOME` con la ruta completa de la carpeta antes de arrancar Transmission.
@@ -217,6 +225,13 @@ src/
 ├── hooks/          carga de datos (TanStack Query), acciones, atajos de teclado
 └── store/          estado de la interfaz (Zustand)
 ```
+
+## Colaboradores
+
+- [@manb0fish](https://github.com/manb0fish): propietario del proyecto
+- **Claude** (asistente de IA de [Anthropic](https://www.anthropic.com)): coescribió el código, las traducciones y la documentación
+
+¡Las nuevas contribuciones son muy bienvenidas! Añadir una traducción es una buena forma de empezar (ver [Idiomas](#idiomas)).
 
 ## Licencia
 

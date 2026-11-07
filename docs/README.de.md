@@ -106,13 +106,21 @@ $env:TRANSMISSION_URL="http://192.168.1.10:9091"; npm run dev
 Mit den Schritten oben läuft Tributary auf deinem Computer. Damit **Transmission selbst** Tributary ausliefert (und du es von
 jedem Gerät aus öffnen kannst, ohne dass sonst etwas laufen muss), baust du es einmal und verweist Transmission auf das Ergebnis.
 
-### 1. Bauen
+### 1. Dateien besorgen
+
+**Am einfachsten: herunterladen (kein Node.js nötig).** Öffne das [neueste Release](https://github.com/manb0fish/tributary/releases/latest), lade **tributary.zip** (oder
+**tributary.tar.gz**) herunter und entpacke es. Du erhältst einen Ordner namens `tributary`. Kopiere ihn auf den Rechner,
+auf dem Transmission läuft, zum Beispiel nach `/opt/tributary`.
+
+Auf einem Linux-Server geht das auch direkt im Terminal:
 
 ```bash
-npm run build
+cd /opt
+sudo curl -L -o tributary.tar.gz https://github.com/manb0fish/tributary/releases/latest/download/tributary.tar.gz
+sudo tar -xzf tributary.tar.gz
 ```
 
-Dadurch entsteht ein Ordner `dist`. Kopiere ihn auf den Rechner, auf dem Transmission läuft, zum Beispiel nach `/opt/tributary`.
+**Oder selbst bauen:** Führe im Projektordner `npm run build` aus. Das Ergebnis liegt in `dist/`; verwende stattdessen diesen Ordner.
 
 ### 2. Transmission anweisen, ihn zu verwenden
 
@@ -135,7 +143,7 @@ Environment=TRANSMISSION_WEB_HOME=/opt/tributary
 sudo systemctl restart transmission-daemon
 ```
 
-**Docker:** Binde den Ordner `dist` in den Container ein (zum Beispiel unter `/tributary`) und setze die Umgebungsvariable
+**Docker:** Binde den Ordner `tributary` in den Container ein (zum Beispiel unter `/tributary`) und setze die Umgebungsvariable
 `TRANSMISSION_WEB_HOME=/tributary`.
 
 **Alles andere:** Setze `TRANSMISSION_WEB_HOME` auf den vollständigen Pfad des Ordners, bevor du Transmission startest.
@@ -217,6 +225,13 @@ src/
 ├── hooks/          Datenabruf (TanStack Query), Aktionen, Tastenkürzel
 └── store/          UI-Zustand (Zustand)
 ```
+
+## Mitwirkende
+
+- [@manb0fish](https://github.com/manb0fish): Projektinhaber
+- **Claude** (KI-Assistent von [Anthropic](https://www.anthropic.com)): hat Code, Übersetzungen und Dokumentation mitgeschrieben
+
+Neue Mitwirkende sind herzlich willkommen! Eine Übersetzung hinzuzufügen ist ein guter Einstieg (siehe [Sprachen](#sprachen)).
 
 ## Lizenz
 

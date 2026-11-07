@@ -106,13 +106,21 @@ Open **http://localhost:5173**. The status bar at the bottom right should say **
 The steps above run Tributary from your computer. To have **Transmission itself** serve Tributary (so you can open it from any
 device, with nothing else running), build it once and point Transmission at the result.
 
-### 1. Build
+### 1. Get the files
+
+**Easiest: download it (no Node.js needed).** Open the [latest release](https://github.com/manb0fish/tributary/releases/latest), download **tributary.zip** (or
+**tributary.tar.gz**) and unzip it. You get a folder called `tributary`. Copy it to the machine running Transmission,
+for example to `/opt/tributary`.
+
+On a Linux server you can do it straight from the terminal:
 
 ```bash
-npm run build
+cd /opt
+sudo curl -L -o tributary.tar.gz https://github.com/manb0fish/tributary/releases/latest/download/tributary.tar.gz
+sudo tar -xzf tributary.tar.gz
 ```
 
-This creates a `dist` folder. Copy it to the machine running Transmission, for example to `/opt/tributary`.
+**Or build it yourself:** run `npm run build` in the project folder. The result is in `dist/`; use that folder instead.
 
 ### 2. Tell Transmission to use it
 
@@ -135,7 +143,7 @@ Environment=TRANSMISSION_WEB_HOME=/opt/tributary
 sudo systemctl restart transmission-daemon
 ```
 
-**Docker:** mount the `dist` folder into the container (for example at `/tributary`) and add the environment variable
+**Docker:** mount the `tributary` folder into the container (for example at `/tributary`) and add the environment variable
 `TRANSMISSION_WEB_HOME=/tributary`.
 
 **Anything else:** set `TRANSMISSION_WEB_HOME` to the folder's full path before starting Transmission.
@@ -216,6 +224,13 @@ src/
 ├── hooks/          data fetching (TanStack Query), actions, keyboard shortcuts
 └── store/          UI state (Zustand)
 ```
+
+## Contributors
+
+- [@manb0fish](https://github.com/manb0fish): project owner
+- **Claude** (AI assistant by [Anthropic](https://www.anthropic.com)): co-wrote the code, translations and documentation
+
+New contributors are very welcome. Adding a translation is a great first contribution (see [Languages](#languages)).
 
 ## License
 
